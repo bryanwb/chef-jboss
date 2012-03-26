@@ -1,0 +1,27 @@
+# The username who should own the process.
+#
+JBOSS_USER=<%= node['jboss']['user'] %>
+
+# The amount of time to wait for startup
+#
+# STARTUP_WAIT=30
+
+# The amount of time to wait for shutdown
+#
+# SHUTDOWN_WAIT=30
+
+JBOSS_HOME=<%= node['jboss']['home'] %>
+
+JBOSS_PIDFILE=/var/run/<%= node['jboss']['user'] %>.pid
+
+JBOSS_CONFIG=standalone.xml
+JAVA_OPTS="-Xms64m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true
+-Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
+JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+<% if node['jboss']['java_opts'] -%>
+export JAVA_OPTS="$JAVA_OPTS <%= node['jboss']['java_opts'].join(' ') %>"
+<% end -%>
+
+# Location to keep the console log
+#
+JBOSS_CONSOLE_LOG=<%= node['jboss']['home'] %>/standalone/log/console.log

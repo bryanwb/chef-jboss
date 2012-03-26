@@ -1,0 +1,29 @@
+= DESCRIPTION:
+JBOSS AS 7 cookbook
+
+This is a very simple cookbook. It only installs the jboss, configures
+the system V init script to run in standalone mode
+
+logging, hostname, ports are not configured
+
+The default recipe installs 
+
+= REQUIREMENTS:
+
+java 1.6
+
+= ATTRIBUTES:
+
+* default['jboss']['jboss_home']  default location for jboss
+* default['jboss']['version'] default version to download
+* default['jboss']['dl_url'] download url
+* default['jboss']['jboss_user'] default jboss user
+
+
+= USAGE:
+
+Accept 
+
+Author: Bryan W. Berry <bryan.berry@gmail.com>
+Copyright: 2012 Food and Agriculture Organization of the United Nations
+License: Apache v2.0

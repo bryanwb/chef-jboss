@@ -1,0 +1,36 @@
+{
+  "name": "jboss",
+  "description": "Installs/Configures jboss",
+  "long_description": "= DESCRIPTION:\nJBOSS AS 7 cookbook\n\nThis is a very simple cookbook. It only installs the jboss, configures\nthe system V init script to run in standalone mode\n\nlogging, hostname, ports are not configured\n\nThe default recipe installs \n\n= REQUIREMENTS:\n\njava 1.6\n\n= ATTRIBUTES:\n\n* default['jboss']['jboss_home']  default location for jboss\n* default['jboss']['version'] default version to download\n* default['jboss']['dl_url'] download url\n* default['jboss']['jboss_user'] default jboss user\n\n\n= USAGE:\n\nAccept \n\nAuthor: Bryan W. Berry <bryan.berry@gmail.com>\nLicense: Apache v2.0",
+  "maintainer": "Bryan Berry",
+  "maintainer_email": "bryan.berry@gmail.com",
+  "license": "Apache v2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "jboss": "installs jboss from the jboss community site"
+  },
+  "version": "0.0.4"
+}
