@@ -14,7 +14,7 @@ jboss_user = node['jboss']['jboss_user']
 
 include_recipe "jboss::_user"
 include_recipe "jboss::_group"
-y
+
 directory jboss_parent do
   group jboss_user
   owner jboss_user
