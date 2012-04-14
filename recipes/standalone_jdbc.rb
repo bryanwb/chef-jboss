@@ -10,7 +10,6 @@
 jboss_home = node['jboss']['home']
 jboss_user = node['jboss']['user']
 
-include_recipe "java::oracle"
 include_recipe "maven"
 
 app_name = node['jboss']['application']
