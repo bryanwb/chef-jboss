@@ -74,7 +74,7 @@ end
 # put the jdbc driver in place
 if node['jboss']['jdbc']['driver']['name'] != 'h2'
   maven node['jboss']['jdbc']['driver']['name'] do
-    groupId node['jboss']['jdbc']['driver']['name'] 
+    group_id node['jboss']['jdbc']['driver']['name'] 
     version  node['jboss']['jdbc']['driver']['version']
     dest "#{node['jboss']['home']}/modules/org/#{node['jboss']['jdbc']['driver']['name']}/main"
     owner node['jboss']['user']
