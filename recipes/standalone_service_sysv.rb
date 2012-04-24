@@ -19,7 +19,7 @@ template "/etc/init.d/#{jboss_user}" do
 end
 
 # template startup script
-template "#{jboss_home}/bin/standalone.sh" do
+template "#{node['jboss']['home']}/bin/standalone.sh" do
   source "standalone.sh.erb"
   mode "0755"
   owner jboss_user

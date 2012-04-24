@@ -5,7 +5,7 @@
    </resources>
   <dependencies>
     <% @mod['dependencies'].each do |dep| -%>
-    <module name="#{dep}"/>
+    <module name="<%= dep %>"/>
     <% end -%>
   </dependencies>
 </module>

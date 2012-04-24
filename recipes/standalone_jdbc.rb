@@ -12,7 +12,8 @@ jboss_user = node['jboss']['user']
 
 include_recipe "maven"
 
-datasources = populate_datasources
+node['jboss']['datasources'] = populate_datasources( node['jboss']['datasources'] )
+jboss_config_file = "#{node['jboss']['home']}/standalone/configuration/#{node['jboss']['config']}.xml"
 
 # create user
 user node['jboss']['user']
@@ -32,7 +33,10 @@ include_recipe "jboss::extra_modules"
 if node['jboss']['manage_config_file']
   template jboss_config_file do
     source "#{node['jboss']['config']}.xml.erb"
-    owner jboss_user
+    variables( :datasources => node['jboss']['datasources'],
+               :drivers => node['jboss']['drivers']
+              )
+    owner node['jboss']['user']
   end
 end
 
