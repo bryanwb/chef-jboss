@@ -48,7 +48,9 @@ if [ -z "$JBOSS_CONFIG" ]; then
   JBOSS_CONFIG=standalone.xml
 fi
 
-JBOSS_SCRIPT=$JBOSS_HOME/bin/standalone.sh
+if [ -z "$JBOSS_SCRIPT" ]; then
+    JBOSS_SCRIPT=$JBOSS_HOME/bin/standalone.sh
+fi
 
 prog='jboss-as'
 
