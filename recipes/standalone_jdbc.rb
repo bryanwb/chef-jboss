@@ -12,7 +12,8 @@ jboss_user = node['jboss']['user']
 
 include_recipe "maven"
 
-node['jboss']['datasources'] = populate_datasources( node['jboss']['datasources'] )
+node['jboss']['datasources'] = populate_datasources_from_env( node['jboss']['datasources'] )
+node['jboss']['java_opts'] = update_java_opts_from_env( node['jboss']['java_opts'] )
 jboss_config_file = "#{node['jboss']['home']}/standalone/configuration/#{node['jboss']['config']}.xml"
 
 # create user
@@ -38,6 +39,11 @@ if node['jboss']['manage_config_file']
               )
     owner node['jboss']['user']
   end
+end
+
+# this is so the ciserver user has rw access to make deployments
+directory "#{node['jboss']['home']}/standalone/deployments" do
+  mode "0755"
 end
 
 # start service

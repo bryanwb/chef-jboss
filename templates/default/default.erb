@@ -16,7 +16,7 @@ JBOSS_PIDFILE=/var/run/<%= node['jboss']['user'] %>.pid
 
 JBOSS_CONFIG=<%= node['jboss']['config'] %>.xml
 JBOSS_SCRIPT=$JBOSS_HOME/bin/<%= node['jboss']['script'] %>
-JAVA_OPTS="-Xms64m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true
+JAVA_OPTS=" -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true
 -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
 JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
 <% if node['jboss']['java_opts'] -%>

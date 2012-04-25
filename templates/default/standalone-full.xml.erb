@@ -381,10 +381,10 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <inet-address value="0.0.0.0"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <inet-address value="0.0.0.0"/>
         </interface>
         <!-- TODO - only show this if the jacorb subsystem is added  -->
         <interface name="unsecure">
