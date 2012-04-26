@@ -289,14 +289,12 @@
                     </pooled-connection-factory>
                 </jms-connection-factories>
                 <jms-destinations>
-                    <jms-queue name="testQueue">
-                        <entry name="queue/test"/>
-                        <entry name="java:jboss/exported/jms/queue/test"/>
+                  <% @queues.each do |queue| -%>
+                    <jms-queue name="<%= queue %>">
+                        <entry name="queue/<%= queue %>"/>
+                        <entry name="java:jboss/exported/jms/queue/<%= queue %>"/>
                     </jms-queue>
-                    <jms-topic name="testTopic">
-                        <entry name="topic/test"/>
-                        <entry name="java:jboss/exported/jms/topic/test"/>
-                    </jms-topic>
+                    <% end -%>
                 </jms-destinations>
             </hornetq-server>
         </subsystem>

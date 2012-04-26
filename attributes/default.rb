@@ -28,10 +28,7 @@ default['jboss']['jdbc']['driver']['name'] = 'h2'
 default['jboss']['jdbc']['driver']['module'] = 'com.h2database.h2'
 default['jboss']['jdbc']['driver']['version'] = ''
 default['jboss']['jdbc']['driver']['class'] = 'org.h2.jdbcx.JdbcDataSource'
-default['jboss']['datasources'] = [] 
-default['jboss']['datasource_drivers'] = {
-  :postgresql => {
-    :module => 'org.postgresql',
-    :xa_datasource_class => 'org.postgresql.xa.PGXADataSource'
-  }
-}
+default['jboss']['datasources'] = []
+default['jboss']['queues'] = []
+default['jboss']['drivers'] = []
+default['jboss']['extra_modules'] = []

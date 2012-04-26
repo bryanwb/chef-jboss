@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jboss
-# Recipe:: standalone_jdbc
+# Recipe:: sdmx
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Copyright 2012, Food and Agriculture Organization of the United Nations
 #
@@ -9,7 +9,6 @@
 
 include_recipe "maven"
 
-node['jboss']['datasources'] = populate_datasources_from_env( node['jboss']['datasources'] )
 node['jboss']['java_opts'] = update_java_opts_from_env( node['jboss']['java_opts'] )
 node['jboss']['config_file'] = "#{node['jboss']['home']}/standalone/configuration/#{node['jboss']['config']}.xml"
 
@@ -28,6 +27,6 @@ end
 
 # start service
 service node['jboss']['user'] do
-  subscribes :restart, resources( :template => node['jboss']['config_file'] ), :immediately if node['jboss']['manage_config_file']
+  subscribes :restart, resources( :template => node['jboss']['config_file']), :immediately if node['jboss']['manage_config_file']
   action [ :enable, :start ]
 end
