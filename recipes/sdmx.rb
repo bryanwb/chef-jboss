@@ -8,9 +8,9 @@
 #
 
 include_recipe "maven"
-
-node['jboss']['java_opts'] = update_java_opts_from_env( node['jboss']['java_opts'] )
-node['jboss']['config_file'] = "#{node['jboss']['home']}/standalone/configuration/#{node['jboss']['config']}.xml"
+node.run_state['jboss'] = {}
+node.run_state['jboss']['java_opts'] = update_java_opts_from_env( node['jboss']['java_opts'] )
+node.run_state['jboss']['config_file'] = "#{node['jboss']['home']}/standalone/configuration/#{node['jboss']['config']}.xml"
 
 # create user
 user node['jboss']['user']
@@ -27,6 +27,6 @@ end
 
 # start service
 service node['jboss']['user'] do
-  subscribes :restart, resources( :template => node['jboss']['config_file']), :immediately if node['jboss']['manage_config_file']
+  subscribes :restart, resources( :template => node.run_state['jboss']['config_file'] ), :immediately if node['jboss']['manage_config_file']
   action [ :enable, :start ]
 end

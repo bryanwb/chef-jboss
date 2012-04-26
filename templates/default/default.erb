@@ -19,9 +19,8 @@ JBOSS_SCRIPT=$JBOSS_HOME/bin/<%= node['jboss']['script'] %>
 JAVA_OPTS=" -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true
 -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
 JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
-<% if node['jboss']['java_opts'] -%>
-export JAVA_OPTS="$JAVA_OPTS <%= node['jboss']['java_opts'].join(' ') %>"
-<% end -%>
+export JAVA_OPTS="$JAVA_OPTS <%= node.run_state['jboss']['java_opts'].join(' ') %>"
+
 
 # Location to keep the console log
 #

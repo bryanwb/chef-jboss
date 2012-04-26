@@ -96,7 +96,7 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
-              <% @datasources.each do |ds| -%>
+              <% node['jboss']['datasources'].each do |ds| -%>
               <datasource jndi-name="java:jboss/datasources/<%= ds['datasource'] %>" 
               pool-name="<%= ds['pool_name'] %>" enabled="true" use-java-context="true">
                 <connection-url>jdbc:<%= ds['driver'] %>://<%= ds['hostname'] -%>:<%= ds['port'] -%>/<%= ds['datasource'] %></connection-url>
@@ -379,10 +379,10 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="0.0.0.0"/>
+            <inet-address value="<%= node[:ipaddress] %>"/>
         </interface>
         <interface name="public">
-            <inet-address value="0.0.0.0"/>
+            <inet-address value="<%= node[:ipaddress] %>"/>
         </interface>
         <!-- TODO - only show this if the jacorb subsystem is added  -->
         <interface name="unsecure">
