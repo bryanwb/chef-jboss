@@ -21,14 +21,5 @@ include_recipe "jboss::ark"
 include_recipe "jboss::standalone_service_sysv"
 include_recipe "jboss::extra_modules"
 include_recipe "jboss::manage_config_file"
-
-# this is so the ciserver user has rw access to make deployments
-directory "#{node['jboss']['home']}/standalone/deployments" do
-  mode "0775"
-end
-
-# start service
-service node['jboss']['user'] do
-  subscribes :restart, resources( :template => node['jboss']['config_file'] ), :immediately if node['jboss']['manage_config_file']
-  action [ :enable, :start ]
-end
+include_recipe "jboss::ci_access"
+include_recipe "jboss::start_service"
