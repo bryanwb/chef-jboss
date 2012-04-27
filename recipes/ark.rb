@@ -5,4 +5,5 @@ ark 'jboss' do
   home_dir node['jboss']['home']
   version node['jboss']['version']
   owner node['jboss']['user']
+  group node['jboss']['user']
 end
