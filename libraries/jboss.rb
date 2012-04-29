@@ -8,7 +8,7 @@ def jboss_options
    {:regex => /-XX:MaxPermSize/, :default => "-XX:MaxPermSize=256m"}
   ]
 end
-  
+
 def populate_datasources_from_env(datasources)
   datasources = populate_from_data_bag(datasources) if datasources.empty?
   datasources.each {|ds| populate_datasource(ds) }
@@ -24,7 +24,16 @@ end
 
 def populate_datasource(datasource)
   datasource['password'] = fetch_password datasource['username']
+  if datasource['hostname'].nil?
+    datasource['hostname'] = fetch_datasource_hostname datasource
+  end
   set_datasource_defaults(datasource)
+end
+
+def fetch_datasource_hostname(datasource)
+  app_name = node['jboss']['application']
+  db = data_bag_item("apps", app_name)[node['app_env']]
+  db['datasource_hostname']
 end
 
 def set_datasource_defaults(datasource)
