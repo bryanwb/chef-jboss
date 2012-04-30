@@ -21,3 +21,12 @@ include_recipe "jboss::extra_modules"
 include_recipe "jboss::manage_config_file"
 include_recipe "jboss::ci_access"
 include_recipe "jboss::start_service"
+
+directory "/usr/local/data" do
+  owner node['jboss']['user']
+  group node['jboss']['user']
+end
+
+link "/data" do
+  to "/usr/local/data"
+end

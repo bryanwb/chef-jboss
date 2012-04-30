@@ -56,7 +56,7 @@
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:1.1">
             <console-handler name="CONSOLE">
-                <level name="INFO"/>
+                <level name="DEBUG"/>
                 <formatter>
                     <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
                 </formatter>
@@ -109,8 +109,9 @@
             </logger>
             <% node['jboss']['extra_loggers'].each do |logger| -%>
             <logger category="<%= logger['category'] %>" 
-            use-parent-handlers="<%= logger['use_parent_handlers']  %>">
-                <level name="INFO"/>
+            use-parent-handlers="<%=
+            logger['use_parent_handlers'].nil? ? "true" : "false"  %>">
+                <level name="<%= logger['level'] %>"/>
                 <% if logger['handler'] -%>
                 <handlers>
                     <handler name="<%= logger['handler'] %>"/>
@@ -131,8 +132,15 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
+                              <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
+                    <driver>h2</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                        <password>sa</password>
+                    </security>
               <% node['jboss']['datasources'].each do |ds| -%>
-              <datasource jndi-name="java:jboss/datasources/<%= ds['datasource'] %>" 
+              <datasource jndi-name="java:jboss/datasources/<%= ds['jndi_name'] %>" 
               pool-name="<%= ds['pool_name'] %>" enabled="true" use-java-context="true">
                 <connection-url>jdbc:<%= ds['driver'] %>://<%= ds['hostname'] -%>:<%= ds['port'] -%>/<%= ds['datasource'] %></connection-url>
                 <driver><%= ds['driver'] %></driver>
@@ -148,7 +156,7 @@
                   <password><%= ds['password'] %></password>
                 </security>
                 <statement>
-                  <prepared-statement-cache-size><%= ds['prepared_statement_cache_size'] %></prepared-statement-cache-size>
+                  <prepared-statement-cache-size><%= ds['statement']['prepared_statement_cache_size'] %></prepared-statement-cache-size>
                   <share-prepared-statements>true</share-prepared-statements>
                 </statement>
                 </security>
@@ -160,6 +168,9 @@
                         <xa-datasource-class><%= driver['xa_datasource_class'] %></xa-datasource-class>
                   </driver>
                   <% end -%>
+                  <driver name="h2" module="com.h2database.h2">
+                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                    </driver>
                 </drivers>
             </datasources>
         </subsystem>
@@ -234,7 +245,7 @@
             <properties>
                 <property
                     name="javax.xml.registry.lifeCycleManagerURL"
-                    value="<%= node[:fqdn] %>:8080/juddi/publish"/>
+                    value="http://<%= node[:fqdn] %>:8080/juddi/publish"/>
                 <property name="javax.xml.registry.queryManagerURL" value="http://<%= node[:fqdn] %>:8080/juddi/query"/>
             </properties>
 
@@ -345,7 +356,9 @@
                   <% @queues.each do |queue| -%>
                     <jms-queue name="<%= queue %>">
                         <entry name="queue/<%= queue %>"/>
-                        <entry name="java:jboss/exported/jms/queue/<%= queue %>"/>
+                        <entry name="java:jboss/exported/jms/queue/<%=
+                        queue %>"/>
+                        <durable>true</durable>
                     </jms-queue>
                     <% end -%>
                 </jms-destinations>
@@ -431,10 +444,10 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="<%= node[:fqdn] %>"/>
+            <inet-address value="${jboss.bind.address.management:<%= node[:fqdn] %>}"/>
         </interface>
         <interface name="public">
-            <inet-address value="<%= node[:fqdn] %>"/>
+            <inet-address value="${jboss.bind.address.management:<%= node[:fqdn] %>}"/>
         </interface>
         <!-- TODO - only show this if the jacorb subsystem is added  -->
         <interface name="unsecure">
@@ -442,7 +455,7 @@
               ~  Used for IIOP sockets in the standard configuration.
               ~                  To secure JacORB you need to setup SSL 
               -->
-            <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
+            <inet-address value="${jboss.bind.address.unsecure:<%= node[:fqdn] %>}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">

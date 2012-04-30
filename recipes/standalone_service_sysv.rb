@@ -1,9 +1,17 @@
 jboss_user = node['jboss']['user']
 
+if node['jboss']['config'] =~ /standalone-full/
+  config_file_name = "standalone-full.xml"
+else
+  config_file_name = "#{node['jboss']['config']}.xml"
+end
+  
+
 # template environment variables used by init file
 template "/etc/default/#{jboss_user}" do
   source "default.erb"
   mode "0755"
+  variables ( :config_file_name => config_file_name)
 end
 
 # template init file

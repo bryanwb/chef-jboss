@@ -14,7 +14,7 @@ JBOSS_HOME=<%= node['jboss']['home'] %>
 
 JBOSS_PIDFILE=/var/run/<%= node['jboss']['user'] %>.pid
 
-JBOSS_CONFIG=<%= node['jboss']['config'] %>.xml
+JBOSS_CONFIG=<%= @config_file_name %>
 JBOSS_SCRIPT=$JBOSS_HOME/bin/<%= node['jboss']['script'] %>
 JAVA_OPTS=" -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true
 -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
