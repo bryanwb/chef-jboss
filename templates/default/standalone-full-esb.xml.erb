@@ -132,13 +132,15 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
-                              <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
+
+              <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+                <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
+                <driver>h2</driver>
+                <security>
+                  <user-name>sa</user-name>
+                  <password>sa</password>
+                </security>
+              </datasource>
               <% node['jboss']['datasources'].each do |ds| -%>
               <datasource jndi-name="java:jboss/datasources/<%= ds['jndi_name'] %>" 
               pool-name="<%= ds['pool_name'] %>" enabled="true" use-java-context="true">
@@ -159,7 +161,6 @@
                   <prepared-statement-cache-size><%= ds['statement']['prepared_statement_cache_size'] %></prepared-statement-cache-size>
                   <share-prepared-statements>true</share-prepared-statements>
                 </statement>
-                </security>
               </datasource>
               <% end -%>
                 <drivers>

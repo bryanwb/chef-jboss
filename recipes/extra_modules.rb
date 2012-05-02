@@ -1,7 +1,7 @@
 # load modules using maven
 unless node['jboss']['extra_modules'].empty?
   node['jboss']['extra_modules'].each do |name,mod|
-    module_subdir = mod['group_id'].split('.').join('/')
+    module_subdir = mod['package'].split('.').join('/')
     maven name do                                       
       group_id mod['group_id']
       version  mod['version']

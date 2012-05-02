@@ -7,6 +7,8 @@
 # license Apache v2.0
 #
 
+include_recipe "haproxy::libraries"
+
 include_recipe "maven"
 node.run_state['jboss'] = {}
 node.run_state['jboss']['java_opts'] = update_java_opts_from_env( node['jboss']['java_opts'] )
@@ -30,3 +32,9 @@ end
 link "/data" do
   to "/usr/local/data"
 end
+
+proxy_me "sdmx"  do
+  port 8080
+end
+#proxy_me "sdmx",  { 'port' => '8080', 'protocol' => 'http' } 
+

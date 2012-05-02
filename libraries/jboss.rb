@@ -38,6 +38,7 @@ end
 
 def set_datasource_defaults(datasource)
   datasource['port'] ||= "5432"
+  datasource['package'] ||= "org.postgresql"
   datasource['driver'] ||= 'postgresql'
   datasource['transaction_isolation'] ||= "TRANSACTION_READ_COMMITTED"
 end
