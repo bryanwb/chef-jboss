@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
 <server xmlns="urn:jboss:domain:1.1">
-
     <extensions>
         <extension module="org.jboss.as.clustering.infinispan"/>
         <extension module="org.jboss.as.configadmin"/>
@@ -31,7 +29,6 @@
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
     </extensions>
-
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -54,7 +51,6 @@
             </http-interface>
         </management-interfaces>
     </management>
-
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:1.1">
             <console-handler name="CONSOLE">
@@ -100,7 +96,6 @@
             <persistence-enabled>true</persistence-enabled>
             <journal-file-size>102400</journal-file-size>
             <journal-min-files>2</journal-min-files>
-
             <connectors>
               <netty-connector name="netty"
                                socket-binding="messaging"/>
@@ -110,7 +105,6 @@
               </netty-connector>
               <in-vm-connector name="in-vm" server-id="0"/>
             </connectors>
-
             <acceptors>
               <netty-acceptor name="netty"
                               socket-binding="messaging"/>
@@ -121,7 +115,6 @@
               </netty-acceptor>
               <in-vm-acceptor name="in-vm" server-id="0"/>
             </acceptors>
-
             <security-settings>
               <security-setting match="#">
                 <permission type="send" roles="guest"/>
@@ -132,7 +125,6 @@
                             roles="guest"/>
               </security-setting>
             </security-settings>
-
             <address-settings>
               <address-setting match="#">
                 <dead-letter-address>jms.queue.DLQ</dead-letter-address>
@@ -143,7 +135,6 @@
                 <message-counter-history-day-limit>10</message-counter-history-day-limit>
               </address-setting>
             </address-settings>
-
             <jms-connection-factories>
               <connection-factory name="InVmConnectionFactory">
                 <connectors>
@@ -393,7 +384,6 @@
             <inet-address value="${jboss.bind.address:<%= node[:ipaddress] %>}"/>
         </interface>
     </interfaces>
-
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="http" port="8080"/>
         <socket-binding name="https" port="8443"/>

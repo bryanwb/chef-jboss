@@ -1,6 +1,9 @@
 # load modules using maven
-unless node['jboss']['extra_modules'].empty?
-  node['jboss']['extra_modules'].each do |name,mod|
+
+extra_modules = node['jboss']['extra_modules'].to_hash
+
+unless extra_modules.empty?
+  extra_modules.each do |name,mod|
     module_subdir = mod['package'].split('.').join('/')
     maven name do                                       
       group_id mod['group_id']

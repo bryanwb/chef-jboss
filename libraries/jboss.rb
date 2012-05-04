@@ -18,7 +18,7 @@ end
 def populate_from_data_bag(datasources)
   app_name = node['jboss']['application']
   db = data_bag_item("apps", app_name)[node['app_env']]
-  datasources = db['datasources']
+  datasources = db['datasources'] || []
   datasources
 end
 
