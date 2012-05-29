@@ -13,6 +13,10 @@
 
 NAME="$(basename $0)"
 
+# This allows the continuous integration server
+# to write to the deployment directory
+umask 0002
+
 # Get instance specific config file, which is located per the debian
 # convention, in red hat terms, this is jboss.conf
 

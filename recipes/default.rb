@@ -10,9 +10,6 @@
 jboss_home = node['jboss']['jboss_home']
 jboss_user = node['jboss']['jboss_user']
 
-include_recipe "jboss::_user"
-include_recipe "jboss::_group"
-
 directory jboss_parent do
   group jboss_user
   owner jboss_user
