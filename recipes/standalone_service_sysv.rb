@@ -11,7 +11,7 @@ end
 template "/etc/default/#{jboss_user}" do
   source "default.erb"
   mode "0755"
-  variables ( :config_file_name => config_file_name)
+  variables( :config_file_name => config_file_name )
 end
 
 # template init file
