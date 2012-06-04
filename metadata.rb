@@ -3,7 +3,7 @@ maintainer_email "bryan.berry@gmail.com"
 license          "Apache v2.0"
 description      "Installs/Configures jboss"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.0.11"
+version          "0.0.12"
 
 %w{ java logrotate }.each do |cb|
   depends cb
