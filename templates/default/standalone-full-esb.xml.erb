@@ -426,7 +426,8 @@
             <coordinator-environment default-timeout="300"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="false">
-            <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/>
+            <connector name="http" protocol="HTTP/1.1" scheme="http"
+                       socket-binding="http" max-connections="512" />
             <virtual-server name="default-host" enable-welcome-root="true">
                 <alias name="<%= node[:fqdn] %>"/>
             </virtual-server>
