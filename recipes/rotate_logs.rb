@@ -12,7 +12,7 @@ cron "compress rotated server.log" do
   minute "0"
   hour   "0"
   command  "find /usr/local/#{node['jboss']['user']}/standalone/log -name 'server.log*.gz' -mtime +60 \
--exec rm -f '{}' \\; \
+-exec rm -f '{}' \\; ; \
 find /usr/local/#{node['jboss']['user']}/standalone/log -name 'server.log.20*'  -a ! -name '*.gz' -exec gzip '{}' \\;"
 end
 
