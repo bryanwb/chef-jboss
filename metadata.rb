@@ -1,3 +1,4 @@
+name             "jboss"  
 maintainer       "Bryan Berry"
 maintainer_email "bryan.berry@gmail.com"
 license          "Apache v2.0"
